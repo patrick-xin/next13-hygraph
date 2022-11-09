@@ -1,7 +1,21 @@
 {
   "name": "next13-hygraph",
   "version": "0.1.0",
+  "description": "Next13 with Hygraph CMS",
   "private": true,
+  "keywords": [
+    "tailwindcss",
+    "nextjs",
+    "hygraph",
+    "CMS",
+    "react"
+  ],
+  "author": {
+    "email": "patrick.xin.dev@gmail.com",
+    "name": "Patrick Xin",
+    "url": "https://patrickxin.com/"
+  },
+  "license": "MIT",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,14 +23,32 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@graphcms/rich-text-react-renderer": "^0.6.1",
+    "@headlessui/react": "^1.7.4",
+    "@next/font": "^13.0.0",
+    "@radix-ui/react-dropdown-menu": "^2.0.1",
+    "@radix-ui/react-hover-card": "^1.0.2",
+    "@radix-ui/react-icons": "^1.1.1",
+    "@radix-ui/react-navigation-menu": "^1.1.1",
     "@types/node": "18.11.9",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.8",
+    "clsx": "^1.2.1",
+    "date-fns": "^2.29.3",
+    "embla-carousel-react": "^7.0.4",
     "eslint": "8.27.0",
     "eslint-config-next": "13.0.2",
+    "framer-motion": "^7.6.5",
     "next": "13.0.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-icons": "^4.6.0",
+    "tailwindcss-radix": "^2.6.1",
     "typescript": "4.8.4"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.13",
+    "postcss": "^8.4.18",
+    "tailwindcss": "^3.2.2"
   }
 }
