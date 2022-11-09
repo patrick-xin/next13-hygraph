@@ -9,7 +9,7 @@ const AboutPage = () => {
       </h1>
       <section className="grid grid-cols-1 md:grid-cols-2 md:gap-8 border-b-2 border-brand py-6 lg:py-12 lg:gap-12 md:border-none">
         <div className="relative w-full h-[40vh]">
-          <Image src={bgimg} className="object-cover" fill />
+          <Image src={bgimg} className="object-cover" fill alt="image" />
         </div>
 
         <div>
@@ -38,7 +38,7 @@ const AboutPage = () => {
           </p>
         </div>
         <div className="relative w-full h-[40vh]">
-          <Image src={bgimg} className="object-cover" fill />
+          <Image src={bgimg} className="object-cover" fill alt="image" />
         </div>
       </section>
       <section className="py-6 lg:py-12">
@@ -64,7 +64,7 @@ const AboutPage = () => {
       </section>
       <section className="py-6 lg:py-12">
         <div className="relative w-full h-[40vh] lg:w-1/2">
-          <Image src={bgimg} className="object-cover" fill />
+          <Image src={bgimg} className="object-cover" fill alt="image" />
         </div>
         <div className="bg-[#333F36] text-white w-full lg:grid grid-cols-2 gap-10 lg:p-12">
           <div className="p-6">
