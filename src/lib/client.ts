@@ -1,4 +1,5 @@
-export const endpoint = `https://api-us-west-2.hygraph.com/v2/cl5qsnuhv0gqn01uf824t01tt/master`;
+const endpoint = `${process.env.NEXT_PUBLIC_GRAPHCMS_ENV}`;
+
 export const client = async (query: string, variables?: {}) => {
   const data = await fetch(endpoint, {
     method: "POST",
