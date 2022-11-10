@@ -1,11 +1,11 @@
 "use client";
 
-import EmblaCarousel from "./EmblaCarousel";
+import Carousel from "./Carousel";
 
 export const Hero = () => {
   return (
     <div className="-mx-6 relative h-[60vh]">
-      <EmblaCarousel />
+      <Carousel />
     </div>
   );
 };

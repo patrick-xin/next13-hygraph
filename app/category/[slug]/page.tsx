@@ -5,7 +5,7 @@ import { BLOG_ON_CATEGORY_QUERY } from "@/lib/query";
 import { client } from "@/lib/client";
 import { AuthorAvatar } from "@/components/AuthorAvatar";
 import { ArticleCard } from "@/components/ArticleCard";
-import FetchMore from "@/components/FetchMore";
+import { FetchMore } from "@/components/FetchMore";
 
 async function getData(slug: string) {
   const data: { categories: Category[]; blogsConnection: BlogsConnection } =

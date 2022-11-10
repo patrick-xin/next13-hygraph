@@ -1,16 +1,13 @@
-import React, { use } from "react";
+import Link from "next/link";
 
+import { Grid } from "@/components/Grid";
+import { Column } from "@/components/Column";
 import { Hero } from "@/components/Hero";
 import { ArticleCard } from "@/components/ArticleCard";
-import Image from "next/image";
-import cn from "clsx";
-import Link from "next/link";
 
 import { Blog } from "@/lib/types";
 import { client } from "@/lib/client";
 import { HOME_PAGE_QUERY } from "@/lib/query";
-import { Grid } from "@/components/Grid";
-import { Column } from "@/components/Column";
 
 async function getData() {
   const data: { blogs: Blog[] } = await client(HOME_PAGE_QUERY, { first: 4 });
@@ -18,8 +15,8 @@ async function getData() {
   return { blogs: data.blogs };
 }
 
-export default function Home() {
-  const { blogs } = use(getData());
+export default async function Home() {
+  const { blogs } = await getData();
 
   return (
     <div>
@@ -28,9 +25,9 @@ export default function Home() {
         <Grid>
           <Column className="lg:p-0 lg:col-span-4">
             <ColTitle title="Fashion Category" />
-            <div className="border-t border-black/20 py-6 space-y-6">
-              {blogs.slice(1).map((post) => (
-                <ArticleCard {...post} key={post.id} />
+            <div className="border-t border-black/20 space-y-4">
+              {blogs.slice(1).map((blog) => (
+                <ArticleCard key={blog.id} {...blog} imgSize="vertical" />
               ))}
             </div>
           </Column>
@@ -41,7 +38,7 @@ export default function Home() {
               In this section you will find all the latest articles added by our
               blog specialists. We invite you to read.
             </p>
-            <div className="py-6 space-y-6">
+            <div className="py-6 space-y-4">
               {blogs.slice(1).map((post) => (
                 <ArticleCard {...post} key={post.id} />
               ))}
@@ -52,7 +49,7 @@ export default function Home() {
             <Employee />
           </Column>
 
-          <About className="lg:hidden" />
+          <About className="lg:hidden mb-8" />
         </Grid>
       </div>
     </div>
@@ -60,7 +57,7 @@ export default function Home() {
 }
 
 const ColTitle = ({ title }: { title: string }) => {
-  return <h3 className="text-xl font-bold mb-4 font-display">{title}</h3>;
+  return <h3 className="text-xl font-bold">{title}</h3>;
 };
 
 const Employee = () => {

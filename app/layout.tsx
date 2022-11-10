@@ -25,7 +25,7 @@ export default function RootLayout({
       <head />
       <body>
         <Navbar />
-        <main className="max-w-screen-2xl mx-auto sm:p-6 lg:p-0 lg:pb-12 min-h-screen overflow-hidden">
+        <main className="max-w-screen-2xl mx-auto lg:p-0 lg:pb-12 min-h-screen overflow-hidden">
           {children}
         </main>
         <Footer />

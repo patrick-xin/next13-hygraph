@@ -12,7 +12,7 @@ export const PublishDate = ({
   dateFormat,
 }: Props) => {
   return (
-    <time className="text-sm text-gray-600 font-medium">
+    <time className="text-sm text-gray-700 font-display font-semibold italic">
       {dateFormat === "distance" ? (
         <span>
           published in{" "}
@@ -23,7 +23,7 @@ export const PublishDate = ({
       ) : withHour ? (
         format(parseISO(publishedAt), "dd, MMMM yyyy h:mm aaa")
       ) : (
-        format(parseISO(publishedAt), "dd, MMMM yyyy")
+        format(parseISO(publishedAt), "MMMM dd, yyyy")
       )}
     </time>
   );

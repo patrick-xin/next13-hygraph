@@ -11,7 +11,7 @@ export const AuthorCard = ({
 }: Props) => {
   return (
     <div>
-      <div className="bg-[#F0F0F0] p-6">
+      <div className="bg-brand/20 p-6 rounded">
         <div className="flex gap-4 items-center">
           <Image
             width={200}
@@ -20,13 +20,12 @@ export const AuthorCard = ({
             className="h-12 w-12 inline-block rounded-full"
             alt={`${firstName}-${lastName}-avatar`}
           />
-          <div>
+          <div className="font-semibold">
             {firstName} {lastName}
           </div>
         </div>
 
         <p className="my-4">{bio}</p>
-        <Link href="/">Check All</Link>
       </div>
     </div>
   );

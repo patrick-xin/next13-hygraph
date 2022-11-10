@@ -1,11 +1,11 @@
-import { use } from "react";
 import Image from "next/image";
+
+import { ArticleCard } from "@/components/ArticleCard";
+import { FetchMore } from "@/components/FetchMore";
+
 import { Author, BlogsConnection } from "@/lib/types";
 import { client } from "@/lib/client";
 import { BLOG_ON_AUTHOR_QUERY } from "@/lib/query";
-import { ArticleCard } from "@/components/ArticleCard";
-import { ListCard } from "@/components/ListCard";
-import FetchMore from "@/components/FetchMore";
 
 async function getData(slug: string) {
   const data: {
@@ -28,7 +28,7 @@ async function getData(slug: string) {
   };
 }
 
-const AuthorPage = ({ params }: { params: { slug: string } }) => {
+const AuthorPage = async ({ params }: { params: { slug: string } }) => {
   const {
     articles,
     endCursor,
@@ -36,13 +36,13 @@ const AuthorPage = ({ params }: { params: { slug: string } }) => {
     initialHasNextPage,
     author,
     mostRecentArticles,
-  } = use(getData(params.slug));
+  } = await getData(params.slug);
   return (
     <div>
       <section className="md:p-6">
         <div className="flex-col items-center gap-6 lg:gap-12">
-          <div className="flex justify-center my-4">
-            <div className="relative h-40 w-40">
+          <div className="flex lg:justify-center my-4">
+            <div className="relative h-24 w-24">
               <Image
                 src={author.avatar.url}
                 fill
@@ -51,39 +51,36 @@ const AuthorPage = ({ params }: { params: { slug: string } }) => {
               />
             </div>
           </div>
-          <div className="space-y-4 max-w-lg mx-auto">
-            <div className="lg:text-5xl text-3xl font-semibold text-center">
+          <div className="space-y-4 max-w-lg lg:mx-auto">
+            <div className="lg:text-5xl text-4xl font-medium font-display lg:text-center">
               {author.firstName} {author.lastName}
             </div>
             <p className="text-lg">{author.bio}</p>
           </div>
         </div>
       </section>
-      <hr className="w-full my-8 block bg-black h-[3px]" />
+      <hr className="w-full my-8 block bg-brand h-[3px]" />
       <section>
         <h3 className="font-semibold text-2xl lg:text-3xl my-6">
           Recent articles
         </h3>
-        <div className="space-y-6">
+        <div className="divide-y divide-brand/50">
           {mostRecentArticles.map(({ node }) => (
             <ArticleCard {...node} key={node.id} hasAuthor={false} />
           ))}
+          {articles.map(({ node }) => (
+            <ArticleCard {...node} key={node.id} />
+          ))}
+          {initialHasNextPage && (
+            <FetchMore
+              endCursor={endCursor}
+              path={`/api/author/${slug}`}
+              slug={slug}
+              type="author"
+              initialHasNextPage={initialHasNextPage}
+            />
+          )}
         </div>
-      </section>
-
-      <section className="divide-y divide-gray-200">
-        {articles.map(({ node }) => (
-          <ListCard {...node} key={node.id} />
-        ))}
-        {initialHasNextPage && (
-          <FetchMore
-            endCursor={endCursor}
-            path={`/api/author/${slug}`}
-            slug={slug}
-            type="author"
-            initialHasNextPage={initialHasNextPage}
-          />
-        )}
       </section>
     </div>
   );

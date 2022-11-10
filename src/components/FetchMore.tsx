@@ -2,7 +2,6 @@
 
 import { useFetch } from "@/lib/hooks";
 import { ArticleCard } from "./ArticleCard";
-import { ListCard } from "./ListCard";
 
 type Props = {
   endCursor: string;
@@ -12,7 +11,7 @@ type Props = {
   initialHasNextPage: boolean;
 };
 
-const FetchMore: React.FC<Props> = ({
+export const FetchMore: React.FC<Props> = ({
   endCursor,
   path,
   slug,
@@ -46,9 +45,9 @@ const FetchMore: React.FC<Props> = ({
       return (
         <div>
           {data.map((d, index) => (
-            <div key={index} className="divide-y divide-gray-200">
+            <div key={index} className="divide-y divide-brand/50">
               {d.blogsConnection.edges.map(({ node }) => (
-                <ListCard key={node.id} {...node} />
+                <ArticleCard key={node.id} {...node} />
               ))}
             </div>
           ))}
@@ -62,7 +61,7 @@ const FetchMore: React.FC<Props> = ({
         {hasNextPage && (
           <button
             disabled={!hasNextPage}
-            className="btn-black my-6 lg:my-8 disabled:cursor-not-allowed"
+            className="bg-brand px-2.5 py-1.5 text-white rounded-md my-6 lg:my-8 disabled:cursor-not-allowed"
             onClick={fetchMore}
           >
             {isLoading ? "loading..." : "Load more"}
@@ -74,5 +73,3 @@ const FetchMore: React.FC<Props> = ({
     </div>
   );
 };
-
-export default FetchMore;

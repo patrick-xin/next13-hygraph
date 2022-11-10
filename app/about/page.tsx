@@ -4,7 +4,7 @@ import bgimg from "../../public/bg.jpg";
 const AboutPage = () => {
   return (
     <div>
-      <h1 className="text-4xl md:text-5xl lg:text-7xl my-6 md:text-center">
+      <h1 className="text-4xl md:text-5xl lg:text-7xl md:my-6 md:text-center">
         About us
       </h1>
       <section className="grid grid-cols-1 md:grid-cols-2 md:gap-8 border-b-2 border-brand py-6 lg:py-12 lg:gap-12 md:border-none">
@@ -13,8 +13,8 @@ const AboutPage = () => {
         </div>
 
         <div>
-          <div className="italic text-sm">Newspaper from scratch</div>
-          <h3 className="text-3xl my-5 md:text-4xl lg:text-5xl">
+          <div className="italic text-sm mt-6">Newspaper from scratch</div>
+          <h3 className="text-3xl my-5 md:text-4xl lg:text-5xl font-semibold">
             Our company creates with a hobby
           </h3>
           <div className="font-semibold text-lg my-2">Employed people</div>
@@ -28,7 +28,7 @@ const AboutPage = () => {
       <section className="py-6 grid grid-cols-1 md:grid-cols-2 md:gap-8 lg:py-12 lg:gap-12">
         <div>
           <div className="italic text-sm">Our mission</div>
-          <h3 className="text-3xl my-5 md:text-4xl lg:text-5xl">
+          <h3 className="text-3xl my-5 md:text-4xl lg:text-5xl font-semibold">
             We always look to the future
           </h3>
           <p>
@@ -37,13 +37,13 @@ const AboutPage = () => {
             scientific work, focusing on benefit.
           </p>
         </div>
-        <div className="relative w-full h-[40vh]">
+        <div className="relative w-full h-[40vh] mt-4">
           <Image src={bgimg} className="object-cover" fill alt="image" />
         </div>
       </section>
       <section className="py-6 lg:py-12">
         <div className="grid grid-cols-1 md:grid-cols-2">
-          <h3 className="text-3xl my-5 md:text-4xl lg:text-5xl">
+          <h3 className="text-3xl my-5 md:text-4xl lg:text-5xl font-semibold">
             Evolution System
           </h3>
           <div>

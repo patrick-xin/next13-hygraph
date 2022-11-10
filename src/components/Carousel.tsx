@@ -8,7 +8,7 @@ import {
 } from "react-icons/io";
 import useEmblaCarousel from "embla-carousel-react";
 import cn from "clsx";
-import img from "../public/bg.jpg";
+
 import Image from "next/image";
 import { Blog } from "@/lib/types";
 import { client } from "@/lib/client";
@@ -23,12 +23,12 @@ export const PrevButton = ({
   onClick: () => void;
 }) => (
   <button
-    className={cn("absolute top-1/2 -translate-y-1/2 left-10 lg:left-16")}
+    className={cn("absolute top-1/2 -translate-y-1/2 left-6 lg:left-16")}
     onClick={onClick}
     disabled={!enabled}
   >
     <IoIosArrowDropleftCircle
-      className={cn("text-white/80 h-10 w-10 lg:h-12 lg:w-12")}
+      className={cn("text-white/80 w-8 h-8 md:h-10 md:w-10 lg:h-12 lg:w-12")}
     />
   </button>
 );
@@ -41,11 +41,11 @@ export const NextButton = ({
   onClick: () => void;
 }) => (
   <button
-    className="absolute top-1/2 -translate-y-1/2 right-10 lg:right-16"
+    className="absolute top-1/2 -translate-y-1/2 right-6 lg:right-16"
     onClick={onClick}
     disabled={!enabled}
   >
-    <IoIosArrowDroprightCircle className="text-white/80 h-10 w-10 lg:h-12 lg:w-12" />
+    <IoIosArrowDroprightCircle className="text-white/80 w-8 h-8 md:h-10 md:w-10 lg:h-12 lg:w-12" />
   </button>
 );
 
@@ -94,21 +94,27 @@ const EmblaCarousel = () => {
               <div className="embla__slide relative" key={index}>
                 <div className="embla__slide__inner h-[55vh]">
                   <Image
+                    onLoadingComplete={() => {
+                      setPrevBtnEnabled(true);
+                      setNextBtnEnabled(true);
+                    }}
                     className="h-full object-cover rounded"
                     src={slide.coverImage.url}
                     alt={`${slide.title}-cover-image`}
                     fill
                   />
                 </div>
-                <div className="absolute flex justify-center bg-black/20 rounded px-12 py-6 text-white bottom-0 left-0 right-0 mb-8 z-75 lg:max-w-xl lg:mx-40">
+                <div className="absolute flex justify-center bg-black/20 rounded px-12 py-6 text-white bottom-6 md:bottom-0 left-0 right-0 mb-8 z-75 lg:max-w-2xl lg:mx-40">
                   <div>
                     <Link href={`/article/${slide.slug}`}>
-                      <h1 className="text-3xl my-6 lg:text-5xl font-display">
+                      <h1 className="text-3xl my-6 lg:text-5xl font-display hover:underline decoration-2 underline-offset-2">
                         {slide.title}
                       </h1>
                     </Link>
 
-                    <p>{slide.excerpt}</p>
+                    <p className="line-clamp-2 md:line-clamp-3 lg:line-clamp-4">
+                      {slide.excerpt}
+                    </p>
                   </div>
                 </div>
               </div>

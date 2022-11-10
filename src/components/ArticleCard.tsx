@@ -2,8 +2,11 @@ import { Blog } from "@/lib/types";
 import { format, parseISO } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
+import cn from "clsx";
 
 import { AuthorAvatar } from "./AuthorAvatar";
+import { PublishDate } from "./PublishDate";
+import { ReadMore } from "./ReadMore";
 
 type FeaturedArticleProps = Pick<
   Blog,
@@ -13,7 +16,7 @@ type FeaturedArticleProps = Pick<
 type Props = {
   hasAuthor?: boolean;
   hasDate?: boolean;
-  imgSize?: "auto";
+  imgSize?: "vertical" | "horizontal";
   dateFormat?: "normal" | "distance";
 } & FeaturedArticleProps;
 
@@ -27,19 +30,27 @@ export const ArticleCard = ({
   hasAuthor = true,
   hasDate = false,
   dateFormat,
+  imgSize = "horizontal",
 }: Props) => {
+  const sizes = {
+    vertical: "lg:h-[26rem] xl:h-[32rem]",
+    horizontal: "md:w-full",
+  };
   return (
-    <div className="flex flex-col md:gap-6 md:items-center">
-      <div className="w-full relative h-[16rem] block">
-        <Image src={coverImage.url} fill alt="img" className="object-cover" />
+    <div className={cn("flex flex-col md:gap-6 py-6 lg:gap-10 xl:gap-16")}>
+      <div className={cn("w-full relative h-[18rem] block", [sizes[imgSize]])}>
+        <Image
+          src={coverImage.url}
+          fill
+          alt="img"
+          className="object-cover w-max rounded"
+        />
       </div>
 
-      <div className="space-y-4 py-4">
-        <div className="text-sm italic font-semibold">
-          {format(parseISO(createdAt), "MMMM d yyyy")}
-        </div>
+      <div className="my-4 space-y-2 max-w-2xl lg:space-y-4">
+        <PublishDate publishedAt={createdAt} />
 
-        <h2 className="font-semibold text-2xl hover:text-amber-500">
+        <h2 className="font-semibold text-3xl hover:text-brand capitalize">
           <Link href={`/article/${slug}`}>{title}</Link>
         </h2>
         {hasAuthor && (
@@ -52,15 +63,11 @@ export const ArticleCard = ({
           />
         )}
 
-        <p className="text-base lg:text-lg text-gray-700 my-2">
-          {excerpt.slice(0, 100)}
+        <p className="text-base lg:text-lg text-gray-700 my-2 line-clamp-2 md:my-4 lg:my-6">
+          {excerpt}
         </p>
 
-        <div>
-          <Link href={`/article/${slug}`} className="hover:text-amber-500">
-            Read More...
-          </Link>
-        </div>
+        <ReadMore href={`/article/${slug}`} />
       </div>
     </div>
   );
