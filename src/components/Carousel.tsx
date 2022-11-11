@@ -1,6 +1,5 @@
 "use client";
 
-import { use } from "react";
 import { useState, useEffect, useCallback } from "react";
 import {
   IoIosArrowDroprightCircle,
@@ -49,18 +48,7 @@ export const NextButton = ({
   </button>
 );
 
-const getData = async () => {
-  const data: {
-    blogs: Pick<Blog, "coverImage" | "title" | "excerpt" | "slug">[];
-  } = await client(CAROUSEL_QUERY);
-  return data;
-};
-
-const getCarousel = getData();
-
-const EmblaCarousel = () => {
-  const data = use(getCarousel);
-
+const EmblaCarousel = ({ carousel }: { carousel: Blog[] }) => {
   const [viewportRef, embla] = useEmblaCarousel({
     skipSnaps: false,
     loop: true,
@@ -90,7 +78,7 @@ const EmblaCarousel = () => {
       <div className="embla">
         <div className="embla__viewport" ref={viewportRef}>
           <div className="embla__container">
-            {data.blogs.map((slide, index) => (
+            {carousel.map((slide, index) => (
               <div className="embla__slide relative" key={index}>
                 <div className="embla__slide__inner h-[55vh]">
                   <Image
@@ -101,6 +89,10 @@ const EmblaCarousel = () => {
                     className="h-full object-cover rounded"
                     src={slide.coverImage.url}
                     alt={`${slide.title}-cover-image`}
+                    blurDataURL={slide.coverImage.blurDataUrl}
+                    placeholder={
+                      slide.coverImage.blurDataUrl ? "blur" : "empty"
+                    }
                     fill
                   />
                 </div>

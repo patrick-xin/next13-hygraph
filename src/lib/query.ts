@@ -7,7 +7,16 @@ export const CORE_BLOG_FIELDS = `
     excerpt
     views
     content {
-      raw
+      json
+      references {
+        ... on Asset {
+              id
+              mimeType
+              url
+              width
+              height
+              }
+        }
     }
     author {
       firstName
@@ -82,11 +91,6 @@ export const TODAY_PICK_QUERY = `
 export const ARTICLE_QUERY = `
   ${CORE_BLOG_FIELDS}
   query ArticleQuery($slug: String!) {
-    categories {
-      name
-      id
-      slug
-    }
     blog(where: { slug: $slug }) {
       ...BlogParts
       author {
@@ -193,7 +197,7 @@ export const BLOG_ON_AUTHOR_QUERY = `
 export const HOME_PAGE_QUERY = `
  ${CORE_BLOG_FIELDS}
 query TestQuery($first: Int!){
-categories(
+  categories(
       where: {slug_in: ["design-ideas", "shopping"]}
       orderBy: createdAt_DESC
       first: $first
@@ -203,7 +207,15 @@ categories(
       blogs {
         ...BlogParts
       }
+  }
+  blogs(where:{inCarousel:true}) {
+    slug
+    title
+    excerpt
+    coverImage{
+      url
     }
+  }
 }
 `;
 

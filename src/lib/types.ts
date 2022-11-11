@@ -1,9 +1,16 @@
-import { ElementNode } from "@graphcms/rich-text-types";
+import {
+  ElementNode,
+  Reference,
+  AssetReference,
+  EmbedReferences,
+} from "@graphcms/rich-text-types";
 
 export type Content = {
   raw: {
     children: ElementNode[];
   };
+  json: ElementNode[];
+  references: EmbedReferences;
 };
 
 export interface Root {
@@ -54,6 +61,7 @@ export interface CoverImage {
   thumbnail?: string;
   url: string;
   medium?: string;
+  blurDataUrl: string;
 }
 
 export interface PageInfo {

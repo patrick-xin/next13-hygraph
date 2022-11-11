@@ -8,26 +8,50 @@ import { ArticleCard } from "@/components/ArticleCard";
 import { Blog, Category } from "@/lib/types";
 import { client } from "@/lib/client";
 import { HOME_PAGE_QUERY } from "@/lib/query";
+import { getPlaiceholder } from "plaiceholder";
 
 async function getData() {
-  const data: { categories: Category[] } = await client(HOME_PAGE_QUERY, {
-    first: 6,
-  });
+  const data: { categories: Category[]; blogs: Blog[] } = await client(
+    HOME_PAGE_QUERY,
+    {
+      first: 6,
+    }
+  );
+
   const design_ideas_category = data.categories.filter(
     (c) => c.slug === "design-ideas"
   )[0];
   const shopping_category = data.categories.filter(
     (c) => c.slug === "shopping"
   )[0];
-  return { design_ideas_category, shopping_category };
+  await Promise.all(
+    design_ideas_category.blogs.map(async (blog) => {
+      const { base64 } = await getPlaiceholder(blog.coverImage.url);
+      blog.coverImage.blurDataUrl = base64;
+    })
+  );
+  await Promise.all(
+    shopping_category.blogs.map(async (blog) => {
+      const { base64 } = await getPlaiceholder(blog.coverImage.url);
+      blog.coverImage.blurDataUrl = base64;
+    })
+  );
+  await Promise.all(
+    data.blogs.map(async (blog) => {
+      const { base64 } = await getPlaiceholder(blog.coverImage.url);
+      blog.coverImage.blurDataUrl = base64;
+    })
+  );
+  return { design_ideas_category, shopping_category, carousel: data.blogs };
 }
 
 export default async function Home() {
-  const { design_ideas_category, shopping_category } = await getData();
+  const { design_ideas_category, shopping_category, carousel } =
+    await getData();
 
   return (
     <div>
-      <Hero />
+      <Hero carousel={carousel} />
 
       <div className="px-6 lg:px-10 xl:px-14">
         <Grid>

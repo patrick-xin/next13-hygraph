@@ -36,6 +36,7 @@ export const ArticleCard = ({
     vertical: "lg:h-[26rem] xl:h-[32rem]",
     horizontal: "md:w-full",
   };
+
   return (
     <div className={cn("flex flex-col md:gap-6 py-6 lg:gap-10 xl:gap-16")}>
       <div className={cn("w-full relative h-[18rem] block", [sizes[imgSize]])}>
@@ -44,6 +45,8 @@ export const ArticleCard = ({
           fill
           alt="img"
           className="object-cover w-max rounded"
+          placeholder={coverImage.blurDataUrl ? "blur" : "empty"}
+          blurDataURL={coverImage.blurDataUrl}
         />
       </div>
 

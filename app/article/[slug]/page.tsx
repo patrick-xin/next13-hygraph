@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { RichText } from "@graphcms/rich-text-react-renderer";
 import Link from "next/link";
+import { getPlaiceholder } from "plaiceholder";
 
 import { AuthorCard } from "@/components/AuthorCard";
 import { Blog } from "@/lib/types";
@@ -13,6 +14,18 @@ async function getData(slug: string) {
   const article: { blog: Blog } = await client(ARTICLE_QUERY, {
     slug,
   });
+  const { base64 } = await getPlaiceholder(article.blog.coverImage.url);
+  article.blog.coverImage.blurDataUrl = base64;
+
+  const images = article.blog.content.references.filter((asset) =>
+    asset.mimeType.includes("image")
+  );
+  await Promise.all(
+    images.map(async (image) => {
+      const { base64 } = await getPlaiceholder(image.url);
+      image.blurDataUrl = base64;
+    })
+  );
 
   return { post: article };
 }
@@ -53,12 +66,29 @@ const MainColumn = ({ post }: { post: Blog }) => {
           fill
           alt="image-cover"
           className="object-cover rounded"
+          blurDataURL={post.coverImage.blurDataUrl}
+          placeholder="blur"
         />
       </div>
       <div className="lg:mx-8 xl:m-12">
         <RichText
-          content={post.content.raw}
+          content={post.content.json}
+          references={post.content.references}
           renderers={{
+            Asset: {
+              image: ({ url, width, height, blurDataUrl }) => {
+                return (
+                  <Image
+                    src={url}
+                    alt="image"
+                    width={width}
+                    height={height}
+                    placeholder={blurDataUrl ? "blur" : "empty"}
+                    blurDataURL={blurDataUrl}
+                  />
+                );
+              },
+            },
             h1: ({ children }) => (
               <h1 className="text-4xl font-black my-8">{children}</h1>
             ),
@@ -95,15 +125,12 @@ const MainColumn = ({ post }: { post: Blog }) => {
 
               return <Link href={href!}>{children}</Link>;
             },
-            img: ({ src, altText, height, width }) => (
-              <Image
-                src={src!}
-                alt="image"
-                height={height}
-                width={width}
-                objectFit="cover"
-              />
-            ),
+
+            img: ({ src, altText, height, width }) => {
+              return (
+                <Image src={src!} alt="image" height={height} width={width} />
+              );
+            },
           }}
         />
       </div>
