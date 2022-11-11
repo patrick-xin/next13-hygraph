@@ -191,12 +191,20 @@ export const BLOG_ON_AUTHOR_QUERY = `
 `;
 
 export const HOME_PAGE_QUERY = `
-  ${CORE_BLOG_FIELDS}
-  query HomepageQuery($first: Int!) {
-    blogs(first: $first, orderBy: createdAt_DESC) {
-      ...BlogParts
+ ${CORE_BLOG_FIELDS}
+query TestQuery($first: Int!){
+categories(
+      where: {slug_in: ["design-ideas", "shopping"]}
+      orderBy: createdAt_DESC
+      first: $first
+  ) {
+      name
+      slug
+      blogs {
+        ...BlogParts
+      }
     }
-  }
+}
 `;
 
 export const CATEGORY_QUERY = `

@@ -1,4 +1,3 @@
-import { use } from "react";
 import Image from "next/image";
 import { BlogsConnection, Category } from "@/lib/types";
 import { BLOG_ON_CATEGORY_QUERY } from "@/lib/query";
@@ -6,6 +5,7 @@ import { client } from "@/lib/client";
 import { AuthorAvatar } from "@/components/AuthorAvatar";
 import { ArticleCard } from "@/components/ArticleCard";
 import { FetchMore } from "@/components/FetchMore";
+import Link from "next/link";
 
 async function getData(slug: string) {
   const data: { categories: Category[]; blogsConnection: BlogsConnection } =
@@ -27,9 +27,9 @@ async function getData(slug: string) {
   };
 }
 
-const CategoryPage = ({ params }: { params: { slug: string } }) => {
+const CategoryPage = async ({ params }: { params: { slug: string } }) => {
   const { articles, categories, endCursor, slug, initialHasNextPage, newest } =
-    use(getData(params.slug));
+    await getData(params.slug);
   return (
     <div>
       <h1 className="text-6xl font-bold text-center my-12 uppercase">{slug}</h1>
@@ -45,9 +45,12 @@ const CategoryPage = ({ params }: { params: { slug: string } }) => {
         <div className="absolute -bottom-16 p-8 z-20 right-0 left-0 mx-auto bg-white bg-opacity-90 shadow w-5/6 flex justify-center">
           <div className="space-y-6">
             <h2 className="text-4xl font-bold">
-              <a className="hover:underline" href={`/blog/${newest.node.slug}`}>
+              <Link
+                className="hover:underline"
+                href={`/article/${newest.node.slug}`}
+              >
                 {newest.node.title}
-              </a>
+              </Link>
             </h2>
             <p>{newest.node.excerpt}</p>
             <AuthorAvatar

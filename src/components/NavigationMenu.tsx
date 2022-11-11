@@ -4,15 +4,40 @@ import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import cx from "clsx";
 import Link from "next/link";
 import { MainMenuControlLink } from "./MainMenuControlLink";
+import {
+  MdLight,
+  MdOutlineColorLens,
+  MdCheckroom,
+  MdMail,
+  MdDoorbell,
+} from "react-icons/md";
 
 const links = [
-  { href: "/", label: "home" },
-  { href: "/", label: "home" },
-  { href: "/", label: "home" },
-  { href: "/", label: "home" },
-  { href: "/", label: "home" },
-  { href: "/", label: "home" },
-  { href: "/", label: "home" },
+  {
+    href: "/",
+    label: "Lighting trends for 2023",
+    icon: <MdLight className="h-6 w-6 text-yellow-500" />,
+  },
+  {
+    href: "/",
+    label: "Colors that go with beige",
+    icon: <MdOutlineColorLens className="h-6 w-6 text-green-500" />,
+  },
+  {
+    href: "/",
+    label: "Subscribe to Livingetc",
+    icon: <MdMail className="h-6 w-6 text-brand" />,
+  },
+  {
+    href: "/",
+    label: "Minimalist living rooms",
+    icon: <MdCheckroom className="h-6 w-6 text-blue-500" />,
+  },
+  {
+    href: "/",
+    label: "The best video doorbells",
+    icon: <MdDoorbell className="h-6 w-6 text-red-500" />,
+  },
 ];
 
 type Props = {};
@@ -33,11 +58,11 @@ const NavigationMenu = (props: Props) => {
               "radix-motion-to-end:animate-exit-to-right"
             )}
           >
-            <div className="w-[21rem] lg:w-[30rem] p-3">
-              <div className="text-lg my-2 text-center font-display italic">
+            <div className="w-[21rem] lg:w-[36rem] p-3">
+              <div className="my-2 text-xl text-center font-display italic">
                 Find inspirations and ideas
               </div>
-              <div className="grid grid-cols-3 gap-4 lg:p-6">
+              <div className="grid grid-cols-2 gap-4 lg:p-6">
                 {links.map((link, index) => (
                   /* @ts-expect-error */
                   // TODO Fix Next Link children Props
@@ -45,11 +70,14 @@ const NavigationMenu = (props: Props) => {
                     key={index}
                     href={link.href}
                     className={cx(
-                      "px-4 inline-block hover:text-[#ca9a9a] dark:hover:bg-gray-900 rounded-md",
+                      "px-2 text-base inline-block hover:text-[#ca9a9a] dark:hover:bg-gray-900 rounded-md",
                       "focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
                     )}
                   >
-                    {link.label}
+                    <div className="flex items-center gap-3">
+                      {link.icon}
+                      {link.label}
+                    </div>
                   </MainMenuControlLink>
                 ))}
               </div>
@@ -158,8 +186,16 @@ const NavigationMenu = (props: Props) => {
         </NavigationMenuPrimitive.Item>
         <NavigationMenuPrimitive.Item asChild>
           <Link
+            href="/category/expert-advice"
+            className="px-3 py-2 rounded-md capitalize text-lg lg:text-xl font-display text-gray-700 dark:text-gray-100"
+          >
+            Expert advice
+          </Link>
+        </NavigationMenuPrimitive.Item>
+        <NavigationMenuPrimitive.Item asChild>
+          <Link
             href="/about"
-            className="px-3 py-2 rounded-md uppercase text-lg lg:text-xl font-display text-gray-700 dark:text-gray-100"
+            className="px-3 py-2 rounded-md capitalize text-lg lg:text-xl font-display text-gray-700 dark:text-gray-100"
           >
             About
           </Link>

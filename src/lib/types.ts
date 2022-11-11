@@ -69,4 +69,5 @@ export interface Category {
   id: string;
   slug: string;
   image: CoverImage;
+  blogs: Blog[];
 }

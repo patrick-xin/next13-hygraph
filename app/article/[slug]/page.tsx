@@ -39,7 +39,7 @@ const MainColumn = ({ post }: { post: Blog }) => {
         <h1 className="text-4xl font-bold lg:text-5xl my-6 lg:leading-snug lg:tracking-wide whitespace-normal capitalize">
           {post.title}
         </h1>
-        {/* <p className="text-gray-700 my-6 text-lg">{post.blog.excerpt}</p> */}
+        <p className="text-gray-700 my-6 text-lg">{post.excerpt}</p>
         <AuthorAvatar
           author={post.author}
           hasDate
@@ -59,8 +59,51 @@ const MainColumn = ({ post }: { post: Blog }) => {
         <RichText
           content={post.content.raw}
           renderers={{
-            h1: ({ children }) => <h1>{children}</h1>,
+            h1: ({ children }) => (
+              <h1 className="text-4xl font-black my-8">{children}</h1>
+            ),
+            h2: ({ children }) => (
+              <h2 className="text-3xl font-bold my-6 capitalize">{children}</h2>
+            ),
+            h3: ({ children }) => (
+              <h3 className="text-2xl font-semibold my-4">{children}</h3>
+            ),
             p: ({ children }) => <p className="text-lg my-6">{children}</p>,
+            ul: ({ children }) => (
+              <ul className="text-lg my-6 list-disc space-y-4">{children}</ul>
+            ),
+            ol: ({ children }) => (
+              <ol className="text-lg my-6 list-decimal space-y-4">
+                {children}
+              </ol>
+            ),
+            li: ({ children }) => <li className="">{children}</li>,
+            a: ({ children, openInNewTab, href, ...rest }) => {
+              if (href!.match(/^https?:\/\/|^\/\//i)) {
+                return (
+                  <a
+                    className="text-brand underline underline-offset-1 decoration-brand font-semibold"
+                    href={href}
+                    target={openInNewTab ? "_blank" : "_self"}
+                    rel="noopener noreferrer"
+                    {...rest}
+                  >
+                    {children}
+                  </a>
+                );
+              }
+
+              return <Link href={href!}>{children}</Link>;
+            },
+            img: ({ src, altText, height, width }) => (
+              <Image
+                src={src!}
+                alt="image"
+                height={height}
+                width={width}
+                objectFit="cover"
+              />
+            ),
           }}
         />
       </div>

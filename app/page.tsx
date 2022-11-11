@@ -5,45 +5,61 @@ import { Column } from "@/components/Column";
 import { Hero } from "@/components/Hero";
 import { ArticleCard } from "@/components/ArticleCard";
 
-import { Blog } from "@/lib/types";
+import { Blog, Category } from "@/lib/types";
 import { client } from "@/lib/client";
 import { HOME_PAGE_QUERY } from "@/lib/query";
 
 async function getData() {
-  const data: { blogs: Blog[] } = await client(HOME_PAGE_QUERY, { first: 4 });
-
-  return { blogs: data.blogs };
+  const data: { categories: Category[] } = await client(HOME_PAGE_QUERY, {
+    first: 6,
+  });
+  const design_ideas_category = data.categories.filter(
+    (c) => c.slug === "design-ideas"
+  )[0];
+  const shopping_category = data.categories.filter(
+    (c) => c.slug === "shopping"
+  )[0];
+  return { design_ideas_category, shopping_category };
 }
 
 export default async function Home() {
-  const { blogs } = await getData();
+  const { design_ideas_category, shopping_category } = await getData();
 
   return (
     <div>
       <Hero />
+
       <div className="px-6 lg:px-10 xl:px-14">
         <Grid>
           <Column className="lg:p-0 lg:col-span-4">
-            <ColTitle title="Fashion Category" />
+            <ColTitle title={design_ideas_category.name} />
             <div className="border-t border-black/20 space-y-4">
-              {blogs.slice(1).map((blog) => (
+              {design_ideas_category.blogs.map((blog) => (
                 <ArticleCard key={blog.id} {...blog} imgSize="vertical" />
               ))}
             </div>
+            <Link
+              className="text-xl text-brand underline underline-offset-2 decoration-brand"
+              href={`/category/${design_ideas_category.slug}`}
+            >
+              View more design ideas
+            </Link>
           </Column>
 
           <Column className="border-black/20 md:pl-4 md:pr-2 lg:px-8 md:border-l lg:border-r lg:col-span-5 lg:col-start-5">
-            <ColTitle title="Modern post" />
-            <p className="my-4">
-              In this section you will find all the latest articles added by our
-              blog specialists. We invite you to read.
-            </p>
+            <ColTitle title={shopping_category.name} />
             <div className="py-6 space-y-4">
-              {blogs.slice(1).map((post) => (
+              {shopping_category.blogs.map((post) => (
                 <ArticleCard {...post} key={post.id} />
               ))}
             </div>
-            <About className="hidden lg:block" />
+            <Link
+              className="text-xl text-brand underline underline-offset-2 decoration-brand"
+              href={`/category/${design_ideas_category.slug}`}
+            >
+              View more shoppings
+            </Link>
+            <About className="hidden lg:block mt-12" />
           </Column>
           <Column className="lg:col-start-10 lg:p-0">
             <Employee />
