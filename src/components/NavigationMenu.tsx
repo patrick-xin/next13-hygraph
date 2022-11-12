@@ -92,7 +92,12 @@ const NavigationMenu = () => {
                     )}
                   >
                     <div className="flex items-center gap-5">
-                      <Image src={link.img} width={100} height={100} />
+                      <Image
+                        src={link.img}
+                        width={100}
+                        height={100}
+                        alt="image"
+                      />
                       <div>{link.label}</div>
                     </div>
                   </MainMenuControlLink>

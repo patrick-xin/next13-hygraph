@@ -16,7 +16,6 @@ async function getData() {
 
 const AboutPage = async () => {
   const { data } = await getData();
-  console.log(data);
 
   return (
     <div>
