@@ -26,8 +26,6 @@ type MenuButtonProps = {
 };
 
 const MenuButton = ({ openDrawer, isDrawerOpen }: MenuButtonProps) => {
-  useCloseDrawer(() => openDrawer(false));
-
   return (
     <div className="flex col-span-1 justify-end lg:hidden z-100">
       <motion.button

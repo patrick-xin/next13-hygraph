@@ -51,7 +51,7 @@ export const AuthorAvatar = ({
       </div>
 
       <div className={`flex ${directions[dir]} gap-1 flex-1`}>
-        <div className="text-gray-700">
+        <div className="text-gray-700 dark:text-gray-300">
           <Link
             href={`/author/${author.slug}`}
             className={`${sizes.font[size]} font-semibold`}

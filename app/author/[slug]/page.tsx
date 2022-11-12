@@ -42,20 +42,23 @@ const AuthorPage = async ({ params }: { params: { slug: string } }) => {
       <section className="md:p-6">
         <div className="flex-col items-center gap-6 lg:gap-12">
           <div className="flex lg:justify-center my-4">
-            <div className="relative h-24 w-24">
+            <div className="relative">
               <Image
                 src={author.avatar.url}
-                fill
-                className="rounded-full object-cover"
+                width={200}
+                height={200}
+                className="rounded-full object-cover h-24 w-24"
                 alt="author-avatar"
               />
             </div>
           </div>
-          <div className="space-y-4 max-w-lg lg:mx-auto">
+          <div className="space-y-4 max-w-xl lg:mx-auto">
             <div className="lg:text-5xl text-4xl font-medium font-display lg:text-center">
               {author.firstName} {author.lastName}
             </div>
-            <p className="text-lg">{author.bio}</p>
+            <p className="text-lg text-gray-700 dark:text-gray-300">
+              {author.bio}
+            </p>
           </div>
         </div>
       </section>
@@ -64,7 +67,7 @@ const AuthorPage = async ({ params }: { params: { slug: string } }) => {
         <h3 className="font-semibold text-2xl lg:text-3xl my-6">
           Recent articles
         </h3>
-        <div className="divide-y divide-brand/50">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-12 lg:grid-cols-3">
           {mostRecentArticles.map(({ node }) => (
             <ArticleCard {...node} key={node.id} hasAuthor={false} />
           ))}

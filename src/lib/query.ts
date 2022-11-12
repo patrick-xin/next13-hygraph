@@ -262,3 +262,31 @@ export const CAROUSEL_QUERY = `
   }
 }
 `;
+
+export const ABOUT_PAGE_QUERY = `
+query AboutPageQuery{
+  about(where: {id: "clad47ie69llj0bn3ufm8la0v"}) {
+    description
+    info {
+      json
+    }
+    mission {
+      json
+    }
+    team {
+      json
+      references {
+        ... on Author {
+          id
+          lastName
+          lastName
+          bio
+          avatar {
+            url
+          }
+        }
+      }
+    }
+  }
+}
+`;

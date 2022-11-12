@@ -10,8 +10,6 @@ import cn from "clsx";
 
 import Image from "next/image";
 import { Blog } from "@/lib/types";
-import { client } from "@/lib/client";
-import { CAROUSEL_QUERY } from "@/lib/query";
 import Link from "next/link";
 
 export const PrevButton = ({
@@ -80,7 +78,7 @@ const EmblaCarousel = ({ carousel }: { carousel: Blog[] }) => {
           <div className="embla__container">
             {carousel.map((slide, index) => (
               <div className="embla__slide relative" key={index}>
-                <div className="embla__slide__inner h-[55vh]">
+                <div className="relative overflow-hidden h-[55vh]">
                   <Image
                     onLoadingComplete={() => {
                       setPrevBtnEnabled(true);
@@ -96,7 +94,7 @@ const EmblaCarousel = ({ carousel }: { carousel: Blog[] }) => {
                     fill
                   />
                 </div>
-                <div className="absolute flex justify-center bg-black/20 rounded px-12 py-6 text-white bottom-6 md:bottom-0 left-0 right-0 mb-8 z-75 lg:max-w-2xl lg:mx-40">
+                <div className="absolute min-h-[24rem] flex justify-center bg-black/20 rounded px-12 py-6 text-white bottom-6 md:bottom-0 left-0 right-0 mb-8 z-75 lg:max-w-2xl lg:mx-40">
                   <div>
                     <Link href={`/article/${slide.slug}`}>
                       <h1 className="text-3xl my-6 lg:text-5xl font-display hover:underline decoration-2 underline-offset-2">

@@ -57,7 +57,7 @@ export default async function Home() {
         <Grid>
           <Column className="lg:p-0 lg:col-span-4">
             <ColTitle title={design_ideas_category.name} />
-            <div className="border-t border-black/20 space-y-4">
+            <div className="border-t border-black/20 dark:border-white/90 space-y-4">
               {design_ideas_category.blogs.map((blog) => (
                 <ArticleCard key={blog.id} {...blog} imgSize="vertical" />
               ))}
@@ -70,7 +70,7 @@ export default async function Home() {
             </Link>
           </Column>
 
-          <Column className="border-black/20 md:pl-4 md:pr-2 lg:px-8 md:border-l lg:border-r lg:col-span-5 lg:col-start-5">
+          <Column className="border-black/20 dark:border-white/90 md:pl-4 md:pr-2 lg:px-8 md:border-l lg:border-r lg:col-span-5 lg:col-start-5">
             <ColTitle title={shopping_category.name} />
             <div className="py-6 space-y-4">
               {shopping_category.blogs.map((post) => (
@@ -139,7 +139,7 @@ const Employee = () => {
 const About = ({ className }: { className: string }) => {
   return (
     <div className={className}>
-      <div className="bg-[#EEEEEE] p-6">
+      <div className="bg-[#EEEEEE] dark:bg-[#403d3d] p-6">
         <div className="text-lg font-bold mb-4">About NewsPaper</div>
         <p>
           Visit our website every day and it will certainly be a useful and

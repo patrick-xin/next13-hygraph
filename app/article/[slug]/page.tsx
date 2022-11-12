@@ -49,10 +49,12 @@ const MainColumn = ({ post }: { post: Blog }) => {
   return (
     <div className="col-span-4">
       <div className="max-w-3xl lg:mx-8 xl:mx-12 mt-8">
-        <h1 className="text-4xl font-bold lg:text-5xl my-6 lg:leading-snug lg:tracking-wide whitespace-normal capitalize">
+        <h1 className="text-4xl font-bold lg:text-5xl my-6 lg:leading-tight lg:mt-20 lg:tracking-wide whitespace-normal capitalize">
           {post.title}
         </h1>
-        <p className="text-gray-700 my-6 text-lg">{post.excerpt}</p>
+        <p className="text-gray-700 my-6 text-lg lg:text-xl lg:my-10 dark:text-gray-300">
+          {post.excerpt}
+        </p>
         <AuthorAvatar
           author={post.author}
           hasDate
@@ -126,7 +128,7 @@ const MainColumn = ({ post }: { post: Blog }) => {
               return <Link href={href!}>{children}</Link>;
             },
 
-            img: ({ src, altText, height, width }) => {
+            img: ({ src, height, width }) => {
               return (
                 <Image src={src!} alt="image" height={height} width={width} />
               );
@@ -142,8 +144,8 @@ const MainColumn = ({ post }: { post: Blog }) => {
 
 const RecentColumn = ({ post }: { post: Blog }) => {
   return (
-    <div className="my-8 col-start-5 col-span-full md:px-8 md:border-l md:border-black/20 lg:px-12">
-      <h3 className="text-xl font-bold pb-4 border-b border-black/20">
+    <div className="my-8 col-start-5 col-span-full md:px-8 md:border-l md:border-black/20 dark:md:border-white/90 lg:px-12">
+      <h3 className="text-xl font-bold pb-4 border-b border-black/20 dark:border-white/90">
         Recent post from {post.author.firstName} {post.author.lastName}
       </h3>
       <div className="divide-y space-y-6">

@@ -1,12 +1,31 @@
+import { client } from "@/lib/client";
+import { ABOUT_PAGE_QUERY } from "@/lib/query";
+import { AboutPageData, Author, Blog } from "@/lib/types";
+import { RichText } from "@graphcms/rich-text-react-renderer";
 import Image from "next/image";
+import Link from "next/link";
 import bgimg from "../../public/bg.jpg";
+import { EmbedProps, LinkEmbedProps } from "@graphcms/rich-text-types";
+import { AuthorAvatar } from "@/components/AuthorAvatar";
 
-const AboutPage = () => {
+async function getData() {
+  const data: { about: AboutPageData } = await client(ABOUT_PAGE_QUERY);
+
+  return { data: data.about };
+}
+
+const AboutPage = async () => {
+  const { data } = await getData();
+  console.log(data);
+
   return (
     <div>
       <h1 className="text-4xl md:text-5xl lg:text-7xl md:my-6 md:text-center">
         About us
       </h1>
+      <p className="text-2xl font-semibold text-center font-display my-6">
+        {data.description}
+      </p>
       <section className="grid grid-cols-1 md:grid-cols-2 md:gap-8 border-b-2 border-brand py-6 lg:py-12 lg:gap-12 md:border-none">
         <div className="relative w-full h-[40vh]">
           <Image src={bgimg} className="object-cover" fill alt="image" />
@@ -18,6 +37,78 @@ const AboutPage = () => {
             Our company creates with a hobby
           </h3>
           <div className="font-semibold text-lg my-2">Employed people</div>
+          <div>
+            <RichText
+              content={data.team.json}
+              references={data.team.references}
+              renderers={{
+                embed: {
+                  Author: (author: EmbedProps<Author>) => {
+                    return (
+                      <div className="mx-6">
+                        <AuthorAvatar author={author} />
+                      </div>
+                    );
+                  },
+                },
+                Asset: {
+                  image: ({ url, width, height, blurDataUrl }) => {
+                    return (
+                      <Image
+                        src={url}
+                        alt="image"
+                        width={width}
+                        height={height}
+                        placeholder={blurDataUrl ? "blur" : "empty"}
+                        blurDataURL={blurDataUrl}
+                      />
+                    );
+                  },
+                },
+
+                h1: ({ children }) => (
+                  <h1 className="text-4xl font-black my-8">{children}</h1>
+                ),
+                h2: ({ children }) => (
+                  <h2 className="text-3xl font-bold my-6 capitalize">
+                    {children}
+                  </h2>
+                ),
+                h3: ({ children }) => (
+                  <h3 className="text-2xl font-semibold my-4">{children}</h3>
+                ),
+                p: ({ children }) => <p className="text-lg my-6">{children}</p>,
+                a: ({ children, openInNewTab, href, ...rest }) => {
+                  if (href!.match(/^https?:\/\/|^\/\//i)) {
+                    return (
+                      <a
+                        className="text-brand underline underline-offset-1 decoration-brand font-semibold"
+                        href={href}
+                        target={openInNewTab ? "_blank" : "_self"}
+                        rel="noopener noreferrer"
+                        {...rest}
+                      >
+                        {children}
+                      </a>
+                    );
+                  }
+
+                  return <Link href={href!}>{children}</Link>;
+                },
+
+                img: ({ src, height, width }) => {
+                  return (
+                    <Image
+                      src={src!}
+                      alt="image"
+                      height={height}
+                      width={width}
+                    />
+                  );
+                },
+              }}
+            />
+          </div>
           <p>
             We focus on and take care of the development of our articles, taking
             care of the highest level. Meet our creators and their biographies.

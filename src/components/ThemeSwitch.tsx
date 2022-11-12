@@ -1,92 +1,30 @@
 "use client";
 
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
-import {
-  CropIcon,
-  FileIcon,
-  FrameIcon,
-  Half2Icon,
-  MixerHorizontalIcon,
-  MoonIcon,
-  SunIcon,
-} from "@radix-ui/react-icons";
+import { IoMdSunny, IoMdMoon, IoMdDesktop } from "react-icons/io";
 import cx from "clsx";
-import React, { ReactNode, useEffect, useState } from "react";
-
-interface RadixMenuItem {
-  label: string;
-  shortcut?: string;
-  icon?: ReactNode;
-}
-
-interface User {
-  name: string;
-  url?: string;
-}
-
-const generalMenuItems: RadixMenuItem[] = [
-  {
-    label: "New File",
-    icon: <FileIcon className="mr-2 h-3.5 w-3.5" />,
-    shortcut: "⌘+N",
-  },
-  {
-    label: "Settings",
-    icon: <MixerHorizontalIcon className="mr-2 h-3.5 w-3.5" />,
-    shortcut: "⌘+,",
-  },
-];
-
-const regionToolMenuItems: RadixMenuItem[] = [
-  {
-    label: "Frame",
-    icon: <FrameIcon className="mr-2 h-3.5 w-3.5" />,
-    shortcut: "⌘+F",
-  },
-  {
-    label: "Crop",
-    icon: <CropIcon className="mr-2 h-3.5 w-3.5" />,
-    shortcut: "⌘+S",
-  },
-];
-
-const users: User[] = [
-  {
-    name: "Adam",
-    url: "https://github.com/adamwathan.png",
-  },
-  {
-    name: "Steve",
-    url: "https://github.com/steveschoger.png",
-  },
-  {
-    name: "Robin",
-    url: "https://github.com/robinmalfait.png",
-  },
-];
-
-interface Props {}
+import React, { useEffect, useState } from "react";
 
 const themes = [
   {
     key: "light",
     label: "Light",
-    icon: <SunIcon />,
+    icon: <IoMdSunny />,
   },
   {
     key: "dark",
     label: "Dark",
-    icon: <MoonIcon />,
+    icon: <IoMdMoon />,
   },
 
   {
     key: "system",
     label: "System",
-    icon: <Half2Icon />,
+    icon: <IoMdDesktop />,
   },
 ];
 
-const ThemeSwitcher = (props: Props) => {
+const ThemeSwitcher = () => {
   const [preferredTheme, setPreferredTheme] = useState<null | string>(null);
 
   useEffect(() => {
@@ -114,7 +52,7 @@ const ThemeSwitcher = (props: Props) => {
         <DropdownMenuPrimitive.Trigger
           className={cx(
             "inline-flex select-none justify-center rounded-md px-2.5 py-2 text-sm font-medium",
-            "bg-white text-gray-900 hover:bg-gray-50 dark:bg-gray-700 dark:text-gray-100 hover:dark:bg-gray-600",
+            "bg-white text-gray-900 hover:bg-gray-50 dark:bg-black dark:text-gray-100 hover:dark:bg-gray-600",
             "border border-gray-300 dark:border-transparent",
             "focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
           )}
@@ -123,19 +61,18 @@ const ThemeSwitcher = (props: Props) => {
             switch (preferredTheme) {
               case "light":
                 return (
-                  <SunIcon className="h-5 w-5 text-gray-700 dark:text-gray-300" />
+                  <IoMdSunny className="h-5 w-5 text-gray-700 dark:text-gray-300" />
                 );
               case "dark":
                 return (
-                  <MoonIcon className="h-5 w-5 text-gray-700 dark:text-gray-300" />
+                  <IoMdMoon className="h-5 w-5 text-gray-700 dark:text-gray-300" />
                 );
               default:
                 return (
-                  <Half2Icon className="h-5 w-5 text-gray-700 dark:text-gray-300" />
+                  <IoMdDesktop className="h-5 w-5 text-gray-700 dark:text-gray-300" />
                 );
             }
           })()}
-          {/* {isDark ? "dark" : "light"} */}
         </DropdownMenuPrimitive.Trigger>
 
         <DropdownMenuPrimitive.Portal>

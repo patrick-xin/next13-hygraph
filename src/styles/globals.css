@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply bg-[#F5F5F5] text-gray-800 scroll-smooth antialiased font-body;
+  @apply bg-[#F5F5F5] text-gray-800 scroll-smooth antialiased font-body dark:bg-[#050505] dark:text-[#D3D4D9];
 }
 h1,
 h2,

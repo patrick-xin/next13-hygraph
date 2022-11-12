@@ -12,7 +12,7 @@ export const PublishDate = ({
   dateFormat,
 }: Props) => {
   return (
-    <time className="text-sm text-gray-700 font-display font-semibold italic">
+    <time className="text-sm text-gray-700 dark:text-gray-300 font-display font-semibold italic">
       {dateFormat === "distance" ? (
         <span>
           published in{" "}

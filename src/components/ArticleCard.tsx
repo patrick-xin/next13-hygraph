@@ -47,13 +47,14 @@ export const ArticleCard = ({
           className="object-cover w-max rounded"
           placeholder={coverImage.blurDataUrl ? "blur" : "empty"}
           blurDataURL={coverImage.blurDataUrl}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       </div>
 
       <div className="my-4 space-y-2 max-w-2xl lg:space-y-4">
         <PublishDate publishedAt={createdAt} />
 
-        <h2 className="font-semibold text-3xl hover:text-brand capitalize">
+        <h2 className="font-semibold text-3xl hover:underline capitalize">
           <Link href={`/article/${slug}`}>{title}</Link>
         </h2>
         {hasAuthor && (
@@ -66,7 +67,7 @@ export const ArticleCard = ({
           />
         )}
 
-        <p className="text-base lg:text-lg text-gray-700 my-2 line-clamp-2 md:my-4 lg:my-6">
+        <p className="text-base lg:text-lg text-gray-800 dark:text-gray-200 my-2 line-clamp-2 md:my-4 lg:my-6">
           {excerpt}
         </p>
 

@@ -79,3 +79,17 @@ export interface Category {
   image: CoverImage;
   blogs: Blog[];
 }
+
+export interface AboutPageData {
+  description: string;
+  mission: {
+    json: ElementNode[];
+  };
+  team: {
+    raw: {
+      children: ElementNode[];
+    };
+    json: ElementNode[];
+    references: EmbedReferences;
+  };
+}
